@@ -138,7 +138,7 @@
             groupBox1.Size = new Size(803, 81);
             groupBox1.TabIndex = 6;
             groupBox1.TabStop = false;
-            groupBox1.Text = "Serverinformationen";
+            groupBox1.Text = "Serverinformation";
             // 
             // btnStartStop
             // 
@@ -151,7 +151,7 @@
             btnStartStop.Name = "btnStartStop";
             btnStartStop.Size = new Size(97, 30);
             btnStartStop.TabIndex = 9;
-            btnStartStop.Text = "Starten";
+            btnStartStop.Text = "Start";
             btnStartStop.UseVisualStyleBackColor = false;
             btnStartStop.Click += btnStartStop_Click;
             // 
@@ -234,6 +234,7 @@
             btnSettings.TabIndex = 8;
             btnSettings.Text = "⛭";
             btnSettings.UseVisualStyleBackColor = false;
+            btnSettings.Click += btnSettings_Click;
             // 
             // MainForm
             // 
@@ -252,6 +253,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "MainForm";
             Text = "Form1";
+            Load += MainForm_Load;
             MouseDown += MainForm_MouseDown;
             MouseMove += MainForm_MouseMove;
             MouseUp += MainForm_MouseUp;

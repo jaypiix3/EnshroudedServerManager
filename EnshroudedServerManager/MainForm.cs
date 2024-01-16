@@ -18,6 +18,11 @@ namespace EnshroudedServerManager
             _steamCmdService = new SteamCmdService();
         }
 
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            e.Graphics.DrawRectangle(Pens.White, this.Bounds);
+        }
+
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -69,5 +74,18 @@ namespace EnshroudedServerManager
                 lStatus.ForeColor = Color.Red;
             }
         }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            SettingsForm frm = new SettingsForm();
+            frm.ShowDialog();
+        }
+
+        
     }
 }
