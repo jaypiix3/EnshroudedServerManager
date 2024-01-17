@@ -18,16 +18,13 @@ namespace EnshroudedServerManager
         private PaintService _paintService;
         private InstallService _installService;
         private SettingsService _settingsService;
+        private PathAndLinkService _pathAndLinkService;
 
         private Settings? _settings;
 
         private bool _dragging = false;
         private Point _dragCursorPoint;
         private Point _dragFormPoint;
-
-        private string _pathSteamCmdDir = @"./SteamCmd";
-        private string _pathServerConfig = @"./serverfiles/steamapps/common/EnshroudedServer/enshrouded_server.json";
-        private string _pathSettingsFile = @"./settings.json";
 
         private System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
 
@@ -38,14 +35,15 @@ namespace EnshroudedServerManager
             _paintService = new PaintService();
             _installService = new InstallService(this);
             _settingsService = new SettingsService();
+            _pathAndLinkService = new PathAndLinkService();
 
             LoadSettingsOnStart();
 
-            if (File.Exists(_pathServerConfig))
+            if (File.Exists(_pathAndLinkService.ServerConfigPath))
             {
                 UpdateUI();
             }
-            else if (Directory.Exists(_pathSteamCmdDir))
+            else if (Directory.Exists(_pathAndLinkService.SteamCmdPath))
             {
                 btnSetupServer.Enabled = false;
 
@@ -61,9 +59,9 @@ namespace EnshroudedServerManager
         {
             try
             {
-                if (File.Exists(_pathSettingsFile))
+                if (File.Exists(_pathAndLinkService.SettingsFilePath))
                 {
-                    _settings = _settingsService.LoadSettings(_pathSettingsFile);
+                    _settings = _settingsService.LoadSettings(_pathAndLinkService.SettingsFilePath);
 
                     if (_settings != null)
                     {
@@ -183,7 +181,7 @@ namespace EnshroudedServerManager
                     SlotCount = Convert.ToInt32(tbSlotCount.Text)
                 };
 
-                _settingsService.SaveSettings(_settings, _pathSettingsFile);
+                _settingsService.SaveSettings(_settings, _pathAndLinkService.SettingsFilePath);
 
                 CustomMessageBox cmb = new CustomMessageBox("Settings saved", "Settings are saved. After the next server start \nsettings will be updated.");
                 cmb.ShowDialog();

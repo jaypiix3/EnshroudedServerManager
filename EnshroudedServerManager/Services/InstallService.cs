@@ -5,44 +5,37 @@ namespace EnshroudedServerManager.Services
 {
     public class InstallService
     {
-        private string _downloadLink = @"https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip";
-        private string _steamCmdPath = @"./SteamCmd/";
-        private string _steamCmdZipPath = @"./SteamCmd/";
-        private string _steamCmdZipFileName = @"Steamcmd.zip";
-        private string _steamCmdCombinedPath = string.Empty;
-
-        //private string _steamAppId = "2278520";
-        private string _steamAppId = "2430930";
-        private string _serverPath = @"../Serverfiles";
-        private string _pathSteamCmdExe = @".\SteamCmd\steamcmd.exe";
+        private PathAndLinkService _pathAndLinkService;
 
         public InstallService(Form installForm) 
         {
-            _steamCmdCombinedPath = Path.Combine(_steamCmdZipPath, _steamCmdZipFileName);
+            _pathAndLinkService = new PathAndLinkService();
+
+            _pathAndLinkService.SteamCmdCombinedPath = Path.Combine(_pathAndLinkService.SteamCmdPath, _pathAndLinkService.SteamCmdZipFileName);
         }
 
         public async Task<bool> InstallSteamCmdAsync()
         {
             //Check if dir exists
-            if (!Directory.Exists(_steamCmdPath))
+            if (!Directory.Exists(_pathAndLinkService.SteamCmdPath))
             {
-                Directory.CreateDirectory(_steamCmdPath);
+                Directory.CreateDirectory(_pathAndLinkService.SteamCmdPath);
             }
 
             //Clean up if needed
-            if (File.Exists(_steamCmdCombinedPath))
+            if (File.Exists(_pathAndLinkService.SteamCmdCombinedPath))
             {
-                File.Delete(_steamCmdCombinedPath);
+                File.Delete(_pathAndLinkService.SteamCmdCombinedPath);
             }
 
             DownloadService downloadService = new DownloadService();
-            _ = await downloadService.DownloadAndSave(_downloadLink, _steamCmdZipPath, _steamCmdZipFileName);  
+            _ = await downloadService.DownloadAndSave(_pathAndLinkService.SteamCmdDownloadLink, _pathAndLinkService.SteamCmdPath, _pathAndLinkService.SteamCmdZipFileName);  
 
-            if (File.Exists(_steamCmdCombinedPath))
+            if (File.Exists(_pathAndLinkService.SteamCmdCombinedPath))
             {
                 try
                 {
-                    ZipFile.ExtractToDirectory(_steamCmdCombinedPath, _steamCmdZipPath);
+                    ZipFile.ExtractToDirectory(_pathAndLinkService.SteamCmdCombinedPath, _pathAndLinkService.SteamCmdPath);
                     return true;
                 }
                 catch (Exception)
@@ -58,7 +51,7 @@ namespace EnshroudedServerManager.Services
         {
             try
             {
-                Process.Start(_pathSteamCmdExe, "+force_install_dir " + _serverPath + " +login anonymous +app_update " + _steamAppId + " validate +quit");
+                Process.Start(_pathAndLinkService.SteamCmdExe, "+force_install_dir " + _pathAndLinkService.ServerPathWithBackstep + " +login anonymous +app_update " + _pathAndLinkService.SteamAppId + " validate +quit");
                 return true;
             }
             catch (Exception)

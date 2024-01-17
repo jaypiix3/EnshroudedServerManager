@@ -10,15 +10,16 @@ namespace EnshroudedServerManager
     {
         private PaintService _paintService;
         private SettingsService _settingsService;
+        private PathAndLinkService _pathAndLinkService;
 
         private bool _dragging = false;
         private Point _dragCursorPoint;
         private Point _dragFormPoint;
 
-        private string _test = @".\serverfiles\ShooterGame\Binaries\Win64\ArkAscendedServer.exe";
-        private string _pathServerExe = @"./serverfiles/steamapps/common/EnshroudedServer/enshrouded_server.exe";
-        private string _pathServerConfig = @"./serverfiles/steamapps/common/EnshroudedServer/enshrouded_server.json";
-        private string _pathSourceConfig = @"settings.json";
+        //private string _test = @".\serverfiles\ShooterGame\Binaries\Win64\ArkAscendedServer.exe";
+        //private string _pathServerExe = @"./serverfiles/steamapps/common/EnshroudedServer/enshrouded_server.exe";
+        //private string _pathServerConfig = @"./serverfiles/steamapps/common/EnshroudedServer/enshrouded_server.json";
+        //private string _pathSourceConfig = @"settings.json";
 
         private bool  _restarted= false;
 
@@ -34,6 +35,7 @@ namespace EnshroudedServerManager
             //Initialize Services
             _paintService = new PaintService();
             _settingsService = new SettingsService();
+            _pathAndLinkService = new PathAndLinkService();
 
             this.bwHealthCheck.DoWork += new DoWorkEventHandler(bwHealthCheck_DoWork);
 
@@ -53,9 +55,9 @@ namespace EnshroudedServerManager
 
         public void LoadSettings()
         {
-            if (File.Exists(_pathSourceConfig))
+            if (File.Exists(_pathAndLinkService.SettingsFilePath))
             {
-                _settings = _settingsService.LoadSettings(_pathSourceConfig);
+                _settings = _settingsService.LoadSettings(_pathAndLinkService.SettingsFilePath);
 
                 if (_settings != null)
                 {
@@ -105,7 +107,7 @@ namespace EnshroudedServerManager
 
                 var ramAllocation = _procServer?.WorkingSet64;
                 var allocationInMB = ramAllocation / (1024 * 1024);
-                lProcessMemory.Text = (allocationInMB).ToString();
+                lProcessMemory.Text = (allocationInMB).ToString() + " MB";
             }
 
         }
@@ -141,12 +143,12 @@ namespace EnshroudedServerManager
                 {
                     try
                     {
-                        if (File.Exists(_pathServerConfig))
+                        if (File.Exists(_pathAndLinkService.ServerConfigPath))
                         {
-                            File.Delete(_pathServerConfig);
+                            File.Delete(_pathAndLinkService.ServerConfigPath);
                         }
 
-                        File.Copy(_pathSourceConfig, _pathServerConfig);
+                        File.Copy(_pathAndLinkService.SettingsFilePath, _pathAndLinkService.ServerConfigPath);
                     }
                     catch
                     {
@@ -159,7 +161,7 @@ namespace EnshroudedServerManager
                     lStatus.Text = "Online";
                     lStatus.ForeColor = Color.LimeGreen;
 
-                    _procServer = Process.Start(_test);
+                    _procServer = Process.Start(_pathAndLinkService.TestSystem);
                     _procRunning = true;
 
                     if (!bwHealthCheck.IsBusy)
@@ -245,7 +247,7 @@ namespace EnshroudedServerManager
         {
             if (cbAutoRestart.Checked && !_restarted)
             {
-                _procServer = Process.Start(_test);
+                _procServer = Process.Start(_pathAndLinkService.TestSystem);
                 _procRunning = true;
 
                 _restarted = true;
