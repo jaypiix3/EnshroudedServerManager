@@ -16,11 +16,6 @@ namespace EnshroudedServerManager
         private Point _dragCursorPoint;
         private Point _dragFormPoint;
 
-        //private string _test = @".\serverfiles\ShooterGame\Binaries\Win64\ArkAscendedServer.exe";
-        //private string _pathServerExe = @"./serverfiles/steamapps/common/EnshroudedServer/enshrouded_server.exe";
-        //private string _pathServerConfig = @"./serverfiles/steamapps/common/EnshroudedServer/enshrouded_server.json";
-        //private string _pathSourceConfig = @"settings.json";
-
         private bool  _restarted= false;
 
         private Process? _procServer;
@@ -182,7 +177,7 @@ namespace EnshroudedServerManager
                 lStatus.ForeColor = Color.Red;
 
                 lProcessId.Text = "/";
-                lProcessMemory.Text = "0";
+                lProcessMemory.Text = "0 MB";
 
                 _procServer?.Kill();
                 _procServer = null;

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net;
@@ -99,6 +100,7 @@ namespace EnshroudedServerManager
             tbGamePort.Enabled = true;
             tbQueryPort.Enabled = true;
             tbSlotCount.Enabled = true;
+            btnCreateFirewallRule.Enabled = true;
 
             btnSaveSettings.Enabled = true;
 
@@ -141,7 +143,7 @@ namespace EnshroudedServerManager
         private async void btnSetupServer_Click(object sender, EventArgs e)
         {
             var installedSteamCmd = _installService.InstallSteamCmdAsync();
-            
+
             if (await installedSteamCmd)
             {
                 lSteamCmdStatus.Text = "Installed";
@@ -192,7 +194,7 @@ namespace EnshroudedServerManager
                 CustomMessageBox cmb = new CustomMessageBox("Error while saving", @"While saving the settings an error occured.");
                 cmb.ShowDialog();
             }
-            
+
 
         }
 
@@ -211,6 +213,61 @@ namespace EnshroudedServerManager
         protected void UpdateLabelByInvoke(string percentage)
         {
             lSteamCmdStatus.Text = percentage;
+        }
+
+        private void btnCreateFirewallRule_Click(object sender, EventArgs e)
+        {
+            if (tbGamePort.Text.Length > 0 && tbQueryPort.Text.Length > 0)
+            {
+                try
+                {
+                    int gamePortNumber = Convert.ToInt32(tbGamePort.Text);
+                    int queryPortNumber = Convert.ToInt32(tbQueryPort.Text);
+                    string gamePortCommand = $"netsh advfirewall firewall add rule name=\"Enshrouded_GameServerPort_UDP\" dir=in action=allow protocol=UDP localport={gamePortNumber}";
+                    string queryPortCommand = $"netsh advfirewall firewall add rule name=\"Enshrouded_QueryServerPort_TCP\" dir=in action=allow protocol=TCP localport={queryPortNumber}";
+
+                    RunCommand(new List<string> { gamePortCommand, queryPortCommand });
+
+                    CustomMessageBox cmb = new CustomMessageBox("Success", $"Firewall rules succesfully created!\nGamePort (UDP: {gamePortNumber}) and QueryPort (TCP: {queryPortNumber})");
+                    cmb.ShowDialog();
+                }
+                catch (Exception)
+                {
+                    CustomMessageBox cmb = new CustomMessageBox("Error appeared", "An error occured, please check your firewall rules manually.");
+                    cmb.ShowDialog();
+                }
+            } 
+        }
+
+        public void RunCommand(List<string> commands)
+        {
+            Process process = new Process();
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                RedirectStandardInput = true,
+                RedirectStandardOutput = true,
+                CreateNoWindow = true,
+                UseShellExecute = false
+            };
+
+            process.StartInfo = startInfo;
+            process.Start();
+
+            // Pass the command to cmd.exe
+            foreach(var command in commands)
+            {
+                process.StandardInput.WriteLine(command);
+            }
+            
+            process.StandardInput.Flush();
+            process.StandardInput.Close();
+
+            // Wait for the command to complete
+            process.WaitForExit();
+
+            // Output any command results
+            string result = process.StandardOutput.ReadToEnd();
         }
     }
 }

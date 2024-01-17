@@ -40,6 +40,7 @@
             label5 = new Label();
             label2 = new Label();
             groupBoxConfiguration = new GroupBox();
+            btnCreateFirewallRule = new Button();
             label13 = new Label();
             tbSlotCount = new TextBox();
             label12 = new Label();
@@ -207,6 +208,7 @@
             // 
             // groupBoxConfiguration
             // 
+            groupBoxConfiguration.Controls.Add(btnCreateFirewallRule);
             groupBoxConfiguration.Controls.Add(label13);
             groupBoxConfiguration.Controls.Add(tbSlotCount);
             groupBoxConfiguration.Controls.Add(label12);
@@ -233,6 +235,22 @@
             groupBoxConfiguration.TabIndex = 11;
             groupBoxConfiguration.TabStop = false;
             groupBoxConfiguration.Text = "Configuration (Disabled till setup is finished)";
+            // 
+            // btnCreateFirewallRule
+            // 
+            btnCreateFirewallRule.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnCreateFirewallRule.BackColor = Color.FromArgb(38, 38, 38);
+            btnCreateFirewallRule.Enabled = false;
+            btnCreateFirewallRule.FlatStyle = FlatStyle.Flat;
+            btnCreateFirewallRule.Font = new Font("Arial Unicode MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            btnCreateFirewallRule.ForeColor = Color.DarkGray;
+            btnCreateFirewallRule.Location = new Point(250, 304);
+            btnCreateFirewallRule.Name = "btnCreateFirewallRule";
+            btnCreateFirewallRule.Size = new Size(97, 30);
+            btnCreateFirewallRule.TabIndex = 29;
+            btnCreateFirewallRule.Text = "Firewall rule";
+            btnCreateFirewallRule.UseVisualStyleBackColor = false;
+            btnCreateFirewallRule.Click += btnCreateFirewallRule_Click;
             // 
             // label13
             // 
@@ -529,5 +547,6 @@
         private TextBox tbQueryPort;
         public Label lSteamCmdStatus;
         private Label label1;
+        private Button btnCreateFirewallRule;
     }
 }

@@ -265,9 +265,9 @@
             lProcessMemory.ForeColor = SystemColors.ControlDark;
             lProcessMemory.Location = new Point(679, 35);
             lProcessMemory.Name = "lProcessMemory";
-            lProcessMemory.Size = new Size(16, 17);
+            lProcessMemory.Size = new Size(40, 17);
             lProcessMemory.TabIndex = 10;
-            lProcessMemory.Text = "0";
+            lProcessMemory.Text = "0 MB";
             // 
             // button1
             // 
@@ -324,7 +324,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(31, 31, 31);
-            ClientSize = new Size(853, 259);
+            ClientSize = new Size(853, 258);
             Controls.Add(cbAutoRestart);
             Controls.Add(groupBox2);
             Controls.Add(btnSettings);
