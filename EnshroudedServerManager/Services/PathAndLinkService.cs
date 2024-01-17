@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace EnshroudedServerManager.Services
 {
     public class PathAndLinkService
@@ -24,7 +19,6 @@ namespace EnshroudedServerManager.Services
         public string TestSystem = @".\serverfiles\ShooterGame\Binaries\Win64\ArkAscendedServer.exe";
         public string ServerExePath = @"./serverfiles/steamapps/common/EnshroudedServer/enshrouded_server.exe";
         public string ServerConfigPath = @"./serverfiles/steamapps/common/EnshroudedServer/enshrouded_server.json";
-        
 
         public PathAndLinkService()
         {
