@@ -1,36 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
 
 namespace EnshroudedServerManager.Models
 {
     public class Settings
     {
-        [JsonPropertyName("name")]
+        [JsonProperty("name")]
         public string Name { get; set; }
 
-        [JsonPropertyName("password")]
+        [JsonProperty("password")]
         public string Password { get; set; }
 
-        [JsonPropertyName("saveDirectory")]
+        [JsonProperty("saveDirectory")]
         public string SaveDirectory { get; set; }
 
-        [JsonPropertyName("logDirectory")]
+        [JsonProperty("logDirectory")]
         public string LogDirectory { get; set; }
 
-        [JsonPropertyName("ip")]
+        [JsonProperty("ip")]
         public string IpAddress { get; set; }
 
-        [JsonPropertyName("gamePort")]
+        [JsonProperty("gamePort")]
         public int GamePort { get; set; }
 
-        [JsonPropertyName("queryPort")]
+        [JsonProperty("queryPort")]
         public int QueryPort { get; set; }
 
-        [JsonPropertyName("slotCount")]
+        [JsonProperty("slotCount")]
         public int SlotCount { get; set; }
         
     }
