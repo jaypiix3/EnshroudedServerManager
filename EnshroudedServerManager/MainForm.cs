@@ -35,7 +35,7 @@ namespace EnshroudedServerManager
             _paintService = new PaintService();
             _settingsService = new SettingsService();
 
-            this.bwHealthCheck.DoWork += new System.ComponentModel.DoWorkEventHandler(bwHealthCheck_DoWork);
+            this.bwHealthCheck.DoWork += new DoWorkEventHandler(bwHealthCheck_DoWork);
 
             try
             {
@@ -76,7 +76,7 @@ namespace EnshroudedServerManager
 
         #region Process_Information
 
-        private void bwHealthCheck_DoWork(object sender, DoWorkEventArgs e)
+        private void bwHealthCheck_DoWork(object? sender, DoWorkEventArgs e)
         {
             while (_procRunning)
             {
