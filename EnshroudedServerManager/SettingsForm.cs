@@ -25,7 +25,6 @@ namespace EnshroudedServerManager
         private Point _dragCursorPoint;
         private Point _dragFormPoint;
 
-        private bool _isFullyInstalled = false;
         private string _pathSteamCmdDir = @"./SteamCmd";
         private string _pathServerConfig = @"./serverfiles/steamapps/common/EnshroudedServer/enshrouded_server.json";
         private string _pathSettingsFile = @"./settings.json";
@@ -64,7 +63,7 @@ namespace EnshroudedServerManager
             {
                 if (File.Exists(_pathSettingsFile))
                 {
-                    _settings = _settingsService.LoadSettings(_pathServerConfig);
+                    _settings = _settingsService.LoadSettings(_pathSettingsFile);
 
                     if (_settings != null)
                     {

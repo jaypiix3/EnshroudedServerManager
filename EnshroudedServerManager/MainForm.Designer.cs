@@ -31,14 +31,14 @@
             btnClose = new Button();
             btnMinimize = new Button();
             label1 = new Label();
-            label2 = new Label();
+            lServerName = new Label();
             label3 = new Label();
             groupBox1 = new GroupBox();
             btnStartStop = new Button();
             label8 = new Label();
-            label9 = new Label();
+            lQueryPort = new Label();
             label6 = new Label();
-            label7 = new Label();
+            lGamePort = new Label();
             label5 = new Label();
             lStatus = new Label();
             btnSettings = new Button();
@@ -49,6 +49,7 @@
             button1 = new Button();
             label13 = new Label();
             lProcessId = new Label();
+            cbAutoRestart = new CheckBox();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             SuspendLayout();
@@ -94,16 +95,16 @@
             label1.TabIndex = 2;
             label1.Text = "Enshrouded Server Manager";
             // 
-            // label2
+            // lServerName
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.ForeColor = SystemColors.ControlDark;
-            label2.Location = new Point(79, 35);
-            label2.Name = "label2";
-            label2.Size = new Size(171, 17);
-            label2.TabIndex = 4;
-            label2.Text = "Burning-Fury Enshrouded";
+            lServerName.AutoSize = true;
+            lServerName.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            lServerName.ForeColor = SystemColors.ControlDark;
+            lServerName.Location = new Point(79, 35);
+            lServerName.Name = "lServerName";
+            lServerName.Size = new Size(131, 17);
+            lServerName.TabIndex = 4;
+            lServerName.Text = "Enshrouded Server";
             // 
             // label3
             // 
@@ -120,11 +121,11 @@
             // 
             groupBox1.Controls.Add(btnStartStop);
             groupBox1.Controls.Add(label8);
-            groupBox1.Controls.Add(label9);
+            groupBox1.Controls.Add(lQueryPort);
             groupBox1.Controls.Add(label6);
-            groupBox1.Controls.Add(label7);
+            groupBox1.Controls.Add(lGamePort);
             groupBox1.Controls.Add(label5);
-            groupBox1.Controls.Add(label2);
+            groupBox1.Controls.Add(lServerName);
             groupBox1.Controls.Add(lStatus);
             groupBox1.Controls.Add(label3);
             groupBox1.ForeColor = Color.LightGray;
@@ -161,16 +162,16 @@
             label8.TabIndex = 11;
             label8.Text = "Queryport:";
             // 
-            // label9
+            // lQueryPort
             // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label9.ForeColor = SystemColors.ControlDark;
-            label9.Location = new Point(481, 35);
-            label9.Name = "label9";
-            label9.Size = new Size(48, 17);
-            label9.TabIndex = 10;
-            label9.Text = "16237";
+            lQueryPort.AutoSize = true;
+            lQueryPort.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            lQueryPort.ForeColor = SystemColors.ControlDark;
+            lQueryPort.Location = new Point(481, 35);
+            lQueryPort.Name = "lQueryPort";
+            lQueryPort.Size = new Size(12, 17);
+            lQueryPort.TabIndex = 10;
+            lQueryPort.Text = "/";
             // 
             // label6
             // 
@@ -183,16 +184,16 @@
             label6.TabIndex = 9;
             label6.Text = "Gameport:";
             // 
-            // label7
+            // lGamePort
             // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label7.ForeColor = SystemColors.ControlDark;
-            label7.Location = new Point(341, 35);
-            label7.Name = "label7";
-            label7.Size = new Size(48, 17);
-            label7.TabIndex = 8;
-            label7.Text = "16236";
+            lGamePort.AutoSize = true;
+            lGamePort.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            lGamePort.ForeColor = SystemColors.ControlDark;
+            lGamePort.Location = new Point(341, 35);
+            lGamePort.Name = "lGamePort";
+            lGamePort.Size = new Size(12, 17);
+            lGamePort.TabIndex = 8;
+            lGamePort.Text = "/";
             // 
             // label5
             // 
@@ -241,17 +242,17 @@
             groupBox2.ForeColor = Color.LightGray;
             groupBox2.Location = new Point(25, 161);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(447, 108);
+            groupBox2.Size = new Size(803, 71);
             groupBox2.TabIndex = 9;
             groupBox2.TabStop = false;
-            groupBox2.Text = "Serverinformation";
+            groupBox2.Text = "Processinformation";
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label4.ForeColor = SystemColors.ButtonFace;
-            label4.Location = new Point(26, 68);
+            label4.Location = new Point(481, 35);
             label4.Name = "label4";
             label4.Size = new Size(161, 17);
             label4.TabIndex = 11;
@@ -262,7 +263,7 @@
             lProcessMemory.AutoSize = true;
             lProcessMemory.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lProcessMemory.ForeColor = SystemColors.ControlDark;
-            lProcessMemory.Location = new Point(224, 68);
+            lProcessMemory.Location = new Point(679, 35);
             lProcessMemory.Name = "lProcessMemory";
             lProcessMemory.Size = new Size(16, 17);
             lProcessMemory.TabIndex = 10;
@@ -275,7 +276,7 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Arial Unicode MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
             button1.ForeColor = Color.DarkGray;
-            button1.Location = new Point(934, 28);
+            button1.Location = new Point(1290, 28);
             button1.Name = "button1";
             button1.Size = new Size(97, 30);
             button1.TabIndex = 9;
@@ -298,18 +299,33 @@
             lProcessId.AutoSize = true;
             lProcessId.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lProcessId.ForeColor = SystemColors.ControlDark;
-            lProcessId.Location = new Point(224, 35);
+            lProcessId.Location = new Point(117, 35);
             lProcessId.Name = "lProcessId";
-            lProcessId.Size = new Size(16, 17);
+            lProcessId.Size = new Size(12, 17);
             lProcessId.TabIndex = 4;
-            lProcessId.Text = "0";
+            lProcessId.Text = "/";
+            // 
+            // cbAutoRestart
+            // 
+            cbAutoRestart.AutoSize = true;
+            cbAutoRestart.Checked = true;
+            cbAutoRestart.CheckState = CheckState.Checked;
+            cbAutoRestart.FlatStyle = FlatStyle.Flat;
+            cbAutoRestart.ForeColor = SystemColors.ControlDarkDark;
+            cbAutoRestart.Location = new Point(622, 59);
+            cbAutoRestart.Name = "cbAutoRestart";
+            cbAutoRestart.Size = new Size(206, 19);
+            cbAutoRestart.TabIndex = 10;
+            cbAutoRestart.Text = "Try to restart once when crashed";
+            cbAutoRestart.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(31, 31, 31);
-            ClientSize = new Size(853, 590);
+            ClientSize = new Size(853, 259);
+            Controls.Add(cbAutoRestart);
             Controls.Add(groupBox2);
             Controls.Add(btnSettings);
             Controls.Add(groupBox1);
@@ -338,15 +354,15 @@
         private Button btnClose;
         private Button btnMinimize;
         private Label label1;
-        private Label label2;
+        private Label lServerName;
         private Label label3;
         private GroupBox groupBox1;
         private Label label5;
         private Label lStatus;
         private Label label8;
-        private Label label9;
+        private Label lQueryPort;
         private Label label6;
-        private Label label7;
+        private Label lGamePort;
         private Button btnSettings;
         private Button btnStartStop;
         private System.ComponentModel.BackgroundWorker bwHealthCheck;
@@ -356,5 +372,6 @@
         private Label lProcessId;
         private Label label4;
         private Label lProcessMemory;
+        private CheckBox cbAutoRestart;
     }
 }

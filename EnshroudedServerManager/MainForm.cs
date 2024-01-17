@@ -1,3 +1,4 @@
+using EnshroudedServerManager.Models;
 using EnshroudedServerManager.Services;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -8,6 +9,7 @@ namespace EnshroudedServerManager
     public partial class MainForm : Form
     {
         private PaintService _paintService;
+        private SettingsService _settingsService;
 
         private bool _dragging = false;
         private Point _dragCursorPoint;
@@ -18,8 +20,12 @@ namespace EnshroudedServerManager
         private string _pathServerConfig = @"./serverfiles/steamapps/common/EnshroudedServer/enshrouded_server.json";
         private string _pathSourceConfig = @"settings.json";
 
+        private bool  _restarted= false;
+
         private Process? _procServer;
         private bool _procRunning = false;
+
+        private Settings? _settings;
 
         public MainForm()
         {
@@ -27,6 +33,7 @@ namespace EnshroudedServerManager
 
             //Initialize Services
             _paintService = new PaintService();
+            _settingsService = new SettingsService();
 
             this.bwHealthCheck.DoWork += new System.ComponentModel.DoWorkEventHandler(bwHealthCheck_DoWork);
 
@@ -41,6 +48,29 @@ namespace EnshroudedServerManager
                 CustomMessageBox cmb = new CustomMessageBox("Administrator rights needed", "Please start the application as administrator.");
                 cmb.ShowDialog();
                 this.Close();
+            }
+        }
+
+        public void LoadSettings()
+        {
+            if (File.Exists(_pathSourceConfig))
+            {
+                _settings = _settingsService.LoadSettings(_pathSourceConfig);
+
+                if (_settings != null)
+                {
+                    if (_settings.Name.Length > 23)
+                    {
+                        lServerName.Text = _settings.Name.Substring(0, 23) + "...";
+                    }
+                    else
+                    {
+                        lServerName.Text = _settings.Name;
+                    }
+                    
+                    lGamePort.Text = _settings.GamePort.ToString();
+                    lQueryPort.Text = _settings.QueryPort.ToString();
+                }
             }
         }
 
@@ -71,9 +101,9 @@ namespace EnshroudedServerManager
             if (_procServer != null && !_procServer.HasExited)
             {
                 _procServer?.Refresh();
-                lProcessId.Text = @$"[{(_procServer?.Id)}] {_procServer.ProcessName}";
+                lProcessId.Text = @$"[{(_procServer?.Id)}] {_procServer?.ProcessName}";
 
-                var ramAllocation = _procServer.WorkingSet64;
+                var ramAllocation = _procServer?.WorkingSet64;
                 var allocationInMB = ramAllocation / (1024 * 1024);
                 lProcessMemory.Text = (allocationInMB).ToString();
             }
@@ -86,7 +116,7 @@ namespace EnshroudedServerManager
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+            LoadSettings();
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -149,7 +179,7 @@ namespace EnshroudedServerManager
                 lStatus.Text = "Offline";
                 lStatus.ForeColor = Color.Red;
 
-                lProcessId.Text = "0";
+                lProcessId.Text = "/";
                 lProcessMemory.Text = "0";
 
                 _procServer?.Kill();
@@ -162,6 +192,8 @@ namespace EnshroudedServerManager
         {
             SettingsForm frm = new SettingsForm();
             frm.ShowDialog();
+
+            LoadSettings();
         }
 
         private void btnMinimize_Click(object sender, EventArgs e)
@@ -192,11 +224,11 @@ namespace EnshroudedServerManager
                 {
                     if (InvokeRequired)
                     {
-                        Invoke(new MethodInvoker(SwitchUIToOffline));
+                        Invoke(new MethodInvoker(SwitchUIToOfflineOrRestart));
                     }
                     else
                     {
-                        SwitchUIToOffline();
+                        SwitchUIToOfflineOrRestart();
                     }
                 }
             }
@@ -209,16 +241,26 @@ namespace EnshroudedServerManager
 
         }
 
-        public void SwitchUIToOffline()
+        public void SwitchUIToOfflineOrRestart()
         {
-            btnStartStop.Text = "Start";
-            lStatus.Text = "Offline";
-            lStatus.ForeColor = Color.Red;
+            if (cbAutoRestart.Checked && !_restarted)
+            {
+                _procServer = Process.Start(_test);
+                _procRunning = true;
 
-            lProcessId.Text = "0";
-            lProcessMemory.Text = "0";
+                _restarted = true;
+            }
+            else
+            {
+                btnStartStop.Text = "Start";
+                lStatus.Text = "Offline";
+                lStatus.ForeColor = Color.Red;
 
-            _procServer = null;
+                lProcessId.Text = "/";
+                lProcessMemory.Text = "0";
+
+                _procServer = null;
+            }
         }
 
         public void startWatch_EventArrived(object sender, EventArrivedEventArgs e)
