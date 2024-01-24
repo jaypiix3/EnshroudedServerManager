@@ -3,8 +3,7 @@ namespace EnshroudedServerManager.Services
 {
     public class PathAndLinkService
     {
-        //private string _steamAppId = "2278520";
-        public string SteamAppId = "2430930";
+        public string SteamAppId = "2278520";
 
         public string SteamCmdDownloadLink = @"https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip";
         public string SteamCmdPath = @"./SteamCmd/";
@@ -16,7 +15,7 @@ namespace EnshroudedServerManager.Services
 
         //public string ServerPath = @"./serverfiles";
         public string ServerPathWithBackstep = @"../serverfiles";
-        public string TestSystem = @".\serverfiles\ShooterGame\Binaries\Win64\ArkAscendedServer.exe";
+        //public string TestSystem = @".\serverfiles\ShooterGame\Binaries\Win64\ArkAscendedServer.exe";
         public string ServerExePath = @"./serverfiles/steamapps/common/EnshroudedServer/enshrouded_server.exe";
         public string ServerConfigPath = @"./serverfiles/steamapps/common/EnshroudedServer/enshrouded_server.json";
 

@@ -104,7 +104,6 @@ namespace EnshroudedServerManager
                 var allocationInMB = ramAllocation / (1024 * 1024);
                 lProcessMemory.Text = (allocationInMB).ToString() + " MB";
             }
-
         }
 
         #endregion
@@ -156,7 +155,7 @@ namespace EnshroudedServerManager
                     lStatus.Text = "Online";
                     lStatus.ForeColor = Color.LimeGreen;
 
-                    _procServer = Process.Start(_pathAndLinkService.TestSystem);
+                    _procServer = Process.Start(_pathAndLinkService.ServerExePath);
                     _procRunning = true;
 
                     if (!bwHealthCheck.IsBusy)
@@ -242,7 +241,7 @@ namespace EnshroudedServerManager
         {
             if (cbAutoRestart.Checked && !_restarted)
             {
-                _procServer = Process.Start(_pathAndLinkService.TestSystem);
+                _procServer = Process.Start(_pathAndLinkService.ServerExePath);
                 _procRunning = true;
 
                 _restarted = true;
