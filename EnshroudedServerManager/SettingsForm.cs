@@ -236,7 +236,7 @@ namespace EnshroudedServerManager
                     CustomMessageBox cmb = new CustomMessageBox("Error appeared", "An error occured, please check your firewall rules manually.");
                     cmb.ShowDialog();
                 }
-            } 
+            }
         }
 
         public void RunCommand(List<string> commands)
@@ -255,11 +255,11 @@ namespace EnshroudedServerManager
             process.Start();
 
             // Pass the command to cmd.exe
-            foreach(var command in commands)
+            foreach (var command in commands)
             {
                 process.StandardInput.WriteLine(command);
             }
-            
+
             process.StandardInput.Flush();
             process.StandardInput.Close();
 
@@ -268,6 +268,43 @@ namespace EnshroudedServerManager
 
             // Output any command results
             string result = process.StandardOutput.ReadToEnd();
+        }
+
+        private void btnResetAll_Click(object sender, EventArgs e)
+        {
+            CustomMessageBox cmb = new CustomMessageBox("Reset everything", "Settings are going to reset and close.");
+            cmb.ShowDialog();
+
+            DeleteWholeDirectory(_pathAndLinkService.SteamCmdPath);
+
+            DeleteWholeDirectory(_pathAndLinkService.ServerPath);
+
+            this.Close();
+        }
+        
+        private void DeleteWholeDirectory(string path)
+        {
+            try
+            {
+                System.IO.DirectoryInfo di = new DirectoryInfo(path);
+
+                foreach (FileInfo file in di.GetFiles())
+                {
+                    file.Delete();
+                }
+                foreach (DirectoryInfo dir in di.GetDirectories())
+                {
+                    dir.Delete(true);
+                }
+
+                Directory.Delete(path);
+            }
+            catch (Exception)
+            {
+                CustomMessageBox cmb = new CustomMessageBox("Reset failed", $"Please delete {path} manually if still exists.");
+                cmb.ShowDialog();
+                return;
+            }
         }
     }
 }

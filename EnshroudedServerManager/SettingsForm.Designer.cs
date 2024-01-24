@@ -60,6 +60,7 @@
             btnSaveSettings = new Button();
             button2 = new Button();
             button3 = new Button();
+            btnResetAll = new Button();
             groupBox1.SuspendLayout();
             groupBoxConfiguration.SuspendLayout();
             SuspendLayout();
@@ -71,7 +72,7 @@
             btnMinimize.FlatStyle = FlatStyle.Flat;
             btnMinimize.Font = new Font("Arial Unicode MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
             btnMinimize.ForeColor = Color.DarkGray;
-            btnMinimize.Location = new Point(462, 12);
+            btnMinimize.Location = new Point(537, 12);
             btnMinimize.Name = "btnMinimize";
             btnMinimize.Size = new Size(25, 25);
             btnMinimize.TabIndex = 3;
@@ -86,7 +87,7 @@
             btnClose.FlatStyle = FlatStyle.Flat;
             btnClose.Font = new Font("Arial Unicode MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
             btnClose.ForeColor = Color.DarkGray;
-            btnClose.Location = new Point(493, 12);
+            btnClose.Location = new Point(568, 12);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(25, 25);
             btnClose.TabIndex = 2;
@@ -96,6 +97,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(btnResetAll);
             groupBox1.Controls.Add(label1);
             groupBox1.Controls.Add(lSteamCmdStatus);
             groupBox1.Controls.Add(lServerInstallStatus);
@@ -106,7 +108,7 @@
             groupBox1.ForeColor = Color.LightGray;
             groupBox1.Location = new Point(25, 74);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(472, 111);
+            groupBox1.Size = new Size(557, 111);
             groupBox1.TabIndex = 7;
             groupBox1.TabStop = false;
             groupBox1.Text = "Setup";
@@ -162,7 +164,7 @@
             btnSetupServer.FlatStyle = FlatStyle.Flat;
             btnSetupServer.Font = new Font("Arial Unicode MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
             btnSetupServer.ForeColor = Color.DarkGray;
-            btnSetupServer.Location = new Point(353, 37);
+            btnSetupServer.Location = new Point(438, 37);
             btnSetupServer.Name = "btnSetupServer";
             btnSetupServer.Size = new Size(97, 30);
             btnSetupServer.TabIndex = 10;
@@ -177,7 +179,7 @@
             btnStartStop.FlatStyle = FlatStyle.Flat;
             btnStartStop.Font = new Font("Arial Unicode MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
             btnStartStop.ForeColor = Color.DarkGray;
-            btnStartStop.Location = new Point(959, 28);
+            btnStartStop.Location = new Point(1044, 28);
             btnStartStop.Name = "btnStartStop";
             btnStartStop.Size = new Size(97, 30);
             btnStartStop.TabIndex = 9;
@@ -231,7 +233,7 @@
             groupBoxConfiguration.ForeColor = Color.LightGray;
             groupBoxConfiguration.Location = new Point(25, 191);
             groupBoxConfiguration.Name = "groupBoxConfiguration";
-            groupBoxConfiguration.Size = new Size(472, 356);
+            groupBoxConfiguration.Size = new Size(557, 356);
             groupBoxConfiguration.TabIndex = 11;
             groupBoxConfiguration.TabStop = false;
             groupBoxConfiguration.Text = "Configuration (Disabled till setup is finished)";
@@ -244,7 +246,7 @@
             btnCreateFirewallRule.FlatStyle = FlatStyle.Flat;
             btnCreateFirewallRule.Font = new Font("Arial Unicode MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
             btnCreateFirewallRule.ForeColor = Color.DarkGray;
-            btnCreateFirewallRule.Location = new Point(250, 304);
+            btnCreateFirewallRule.Location = new Point(335, 304);
             btnCreateFirewallRule.Name = "btnCreateFirewallRule";
             btnCreateFirewallRule.Size = new Size(97, 30);
             btnCreateFirewallRule.TabIndex = 29;
@@ -453,7 +455,7 @@
             btnSaveSettings.FlatStyle = FlatStyle.Flat;
             btnSaveSettings.Font = new Font("Arial Unicode MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
             btnSaveSettings.ForeColor = Color.DarkGray;
-            btnSaveSettings.Location = new Point(353, 304);
+            btnSaveSettings.Location = new Point(438, 304);
             btnSaveSettings.Name = "btnSaveSettings";
             btnSaveSettings.Size = new Size(97, 30);
             btnSaveSettings.TabIndex = 13;
@@ -468,7 +470,7 @@
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Arial Unicode MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
             button2.ForeColor = Color.DarkGray;
-            button2.Location = new Point(624, 28);
+            button2.Location = new Point(709, 28);
             button2.Name = "button2";
             button2.Size = new Size(97, 30);
             button2.TabIndex = 10;
@@ -482,19 +484,34 @@
             button3.FlatStyle = FlatStyle.Flat;
             button3.Font = new Font("Arial Unicode MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
             button3.ForeColor = Color.DarkGray;
-            button3.Location = new Point(1231, 28);
+            button3.Location = new Point(1316, 28);
             button3.Name = "button3";
             button3.Size = new Size(97, 30);
             button3.TabIndex = 9;
             button3.Text = "Starten";
             button3.UseVisualStyleBackColor = false;
             // 
+            // btnResetAll
+            // 
+            btnResetAll.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnResetAll.BackColor = Color.FromArgb(38, 38, 38);
+            btnResetAll.FlatStyle = FlatStyle.Flat;
+            btnResetAll.Font = new Font("Arial Unicode MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            btnResetAll.ForeColor = Color.DarkGray;
+            btnResetAll.Location = new Point(335, 37);
+            btnResetAll.Name = "btnResetAll";
+            btnResetAll.Size = new Size(97, 30);
+            btnResetAll.TabIndex = 15;
+            btnResetAll.Text = "Reset All";
+            btnResetAll.UseVisualStyleBackColor = false;
+            btnResetAll.Click += btnResetAll_Click;
+            // 
             // SettingsForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(31, 31, 31);
-            ClientSize = new Size(530, 575);
+            ClientSize = new Size(605, 575);
             Controls.Add(groupBoxConfiguration);
             Controls.Add(label2);
             Controls.Add(groupBox1);
@@ -548,5 +565,6 @@
         public Label lSteamCmdStatus;
         private Label label1;
         private Button btnCreateFirewallRule;
+        private Button btnResetAll;
     }
 }
