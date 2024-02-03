@@ -16,7 +16,7 @@ namespace EnshroudedServerManager
         private Point _dragCursorPoint;
         private Point _dragFormPoint;
 
-        private bool  _restarted= false;
+        private bool _restarted = false;
 
         private Process? _procServer;
         private bool _procRunning = false;
@@ -64,10 +64,18 @@ namespace EnshroudedServerManager
                     {
                         lServerName.Text = _settings.Name;
                     }
-                    
+
                     lGamePort.Text = _settings.GamePort.ToString();
                     lQueryPort.Text = _settings.QueryPort.ToString();
+
+                    btnStartStop.Enabled = true;
+                    btnUpdate.Visible = true;
                 }
+            }
+            else
+            {
+                btnStartStop.Enabled = false;
+                btnUpdate.Visible = false;
             }
         }
 
@@ -121,7 +129,7 @@ namespace EnshroudedServerManager
 
             if (_procServer != null)
             {
-                _procServer.Kill();
+                _procServer.Close();
             }
         }
 
@@ -178,7 +186,7 @@ namespace EnshroudedServerManager
                 lProcessId.Text = "/";
                 lProcessMemory.Text = "0 MB";
 
-                _procServer?.Kill();
+                _procServer?.Close();
                 _procServer = null;
                 _procRunning = false;
             }
@@ -307,5 +315,17 @@ namespace EnshroudedServerManager
         }
 
         #endregion
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start(_pathAndLinkService.SteamCmdExe, "+force_install_dir " + _pathAndLinkService.ServerPathWithBackstep + " +login anonymous +app_update " + _pathAndLinkService.SteamAppId + " validate +quit");
+            }
+            catch (Exception)
+            {
+
+            }
+        }
     }
 }

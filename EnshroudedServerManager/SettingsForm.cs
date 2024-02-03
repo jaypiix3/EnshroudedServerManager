@@ -153,12 +153,36 @@ namespace EnshroudedServerManager
 
                 if (serverfileDownloadStarted)
                 {
+                    CreateSampleConfig();
+
                     lServerInstallStatus.Text = "Download started";
                     lServerInstallStatus.ForeColor = Color.LimeGreen;
 
                     await DelayedClose();
                 }
             }
+        }
+
+        private void CreateSampleConfig()
+        {
+            if (!Directory.Exists(_pathAndLinkService.ServerPath))
+            {
+                Directory.CreateDirectory(_pathAndLinkService.ServerPath);
+            }
+
+            Settings settings = new Settings()
+            {
+                Name = "Enshrouded Server",
+                Password = "",
+                SaveDirectory = "./savegame",
+                LogDirectory = "./logs",
+                IpAddress = "0.0.0.0",
+                GamePort = 15636,
+                QueryPort = 15637,
+                SlotCount = 16
+            };
+
+            _settingsService.SaveSettings(settings, _pathAndLinkService.ServerConfigPath);
         }
 
         private async Task DelayedClose()
@@ -223,10 +247,12 @@ namespace EnshroudedServerManager
                 {
                     int gamePortNumber = Convert.ToInt32(tbGamePort.Text);
                     int queryPortNumber = Convert.ToInt32(tbQueryPort.Text);
-                    string gamePortCommand = $"netsh advfirewall firewall add rule name=\"Enshrouded_GameServerPort_UDP\" dir=in action=allow protocol=UDP localport={gamePortNumber}";
-                    string queryPortCommand = $"netsh advfirewall firewall add rule name=\"Enshrouded_QueryServerPort_TCP\" dir=in action=allow protocol=TCP localport={queryPortNumber}";
+                    string gamePortCommandUdp = $"netsh advfirewall firewall add rule name=\"Enshrouded_GameServerPort_UDP\" dir=in action=allow protocol=UDP localport={gamePortNumber}";
+                    string gamePortCommandTcp = $"netsh advfirewall firewall add rule name=\"Enshrouded_GameServerPort_TCP\" dir=in action=allow protocol=TCP localport={gamePortNumber}";
+                    string queryPortCommandTcp = $"netsh advfirewall firewall add rule name=\"Enshrouded_QueryServerPort_TCP\" dir=in action=allow protocol=TCP localport={queryPortNumber}";
+                    string queryPortCommandUdp = $"netsh advfirewall firewall add rule name=\"Enshrouded_QueryServerPort_UDP\" dir=in action=allow protocol=UDP localport={queryPortNumber}";
 
-                    RunCommand(new List<string> { gamePortCommand, queryPortCommand });
+                    RunCommand(new List<string> { gamePortCommandUdp, gamePortCommandTcp, queryPortCommandTcp, queryPortCommandUdp });
 
                     CustomMessageBox cmb = new CustomMessageBox("Success", $"Firewall rules succesfully created!\nGamePort (UDP: {gamePortNumber}) and QueryPort (TCP: {queryPortNumber})");
                     cmb.ShowDialog();

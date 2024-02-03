@@ -17,8 +17,8 @@ namespace EnshroudedServerManager.Services
         public string ServerPathWithBackstep = @"../serverfiles";
         public string ServerPath = @"./serverfiles";
         //public string TestSystem = @".\serverfiles\ShooterGame\Binaries\Win64\ArkAscendedServer.exe";
-        public string ServerExePath = @"./serverfiles/steamapps/common/EnshroudedServer/enshrouded_server.exe";
-        public string ServerConfigPath = @"./serverfiles/steamapps/common/EnshroudedServer/enshrouded_server.json";
+        public string ServerExePath = @"./serverfiles/enshrouded_server.exe";
+        public string ServerConfigPath = @"./serverfiles/enshrouded_server.json";
 
         public PathAndLinkService()
         {

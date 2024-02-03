@@ -50,6 +50,7 @@
             label13 = new Label();
             lProcessId = new Label();
             cbAutoRestart = new CheckBox();
+            btnUpdate = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             SuspendLayout();
@@ -319,12 +320,28 @@
             cbAutoRestart.Text = "Try to restart once when crashed";
             cbAutoRestart.UseVisualStyleBackColor = true;
             // 
+            // btnUpdate
+            // 
+            btnUpdate.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnUpdate.BackColor = Color.FromArgb(38, 38, 38);
+            btnUpdate.FlatStyle = FlatStyle.Flat;
+            btnUpdate.Font = new Font("Arial Unicode MS", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            btnUpdate.ForeColor = Color.DarkGray;
+            btnUpdate.Location = new Point(723, 12);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(25, 25);
+            btnUpdate.TabIndex = 11;
+            btnUpdate.Text = "⟳";
+            btnUpdate.UseVisualStyleBackColor = false;
+            btnUpdate.Click += btnUpdate_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(31, 31, 31);
             ClientSize = new Size(853, 258);
+            Controls.Add(btnUpdate);
             Controls.Add(cbAutoRestart);
             Controls.Add(groupBox2);
             Controls.Add(btnSettings);
@@ -336,7 +353,7 @@
             ForeColor = SystemColors.ButtonFace;
             FormBorderStyle = FormBorderStyle.None;
             Name = "MainForm";
-            Text = "Form1";
+            Text = "Enshrouded Server Manager";
             Load += MainForm_Load;
             MouseDown += MainForm_MouseDown;
             MouseMove += MainForm_MouseMove;
@@ -373,5 +390,6 @@
         private Label label4;
         private Label lProcessMemory;
         private CheckBox cbAutoRestart;
+        private Button btnUpdate;
     }
 }
